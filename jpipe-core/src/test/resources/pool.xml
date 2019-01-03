@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="pool-1" class="top.ylonline.jpipe.threadpool.common.Pool">
+        <property name="coreSize" value="-1"/>
+        <property name="maxSize" value="20"/>
+        <property name="preStartAllCoreThreads" value="false"/>
+        <property name="keepAlive" value="12000000"/>
+        <property name="queueSize" value="500"/>
+    </bean>
+
+    <!-- 工场模式 -->
+    <bean id="jPipeThreadPool" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolFactoryBean">
+        <property name="pool" ref="pool-1"/>
+    </bean>
+
+    <bean id="jPipeThreadPool-2" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolFactoryBean">
+        <property name="pool">
+            <bean class="top.ylonline.jpipe.threadpool.common.Pool">
+                <property name="coreSize" value="4"/>
+                <property name="maxSize" value="10"/>
+                <property name="preStartAllCoreThreads" value="true"/>
+                <property name="keepAlive" value="60000"/>
+                <property name="queueSize" value="500"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- builder 模式 -->
+    <bean id="jPipeThreadPoolBuilder" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolBuilder">
+        <property name="pool">
+            <bean class="top.ylonline.jpipe.threadpool.common.Pool">
+                <property name="coreSize" value="1"/>
+                <property name="maxSize" value="1"/>
+                <property name="preStartAllCoreThreads" value="true"/>
+                <property name="keepAlive" value="1"/>
+                <property name="queueSize" value="1"/>
+            </bean>
+        </property>
+    </bean>
+    <bean id="jPipeThreadPool-3" factory-bean="jPipeThreadPoolBuilder" factory-method="build"/>
+</beans>
