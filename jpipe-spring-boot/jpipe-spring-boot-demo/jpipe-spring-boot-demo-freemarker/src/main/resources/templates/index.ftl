@@ -1,7 +1,7 @@
 <#--<#assign pipe="top.ylonline.jpipe.freemarker.tag.PipeTag"?new() />-->
 <#--<#assign pagelet="top.ylonline.jpipe.freemarker.tag.PageletTag"?new() />-->
 <#--<#assign param="top.ylonline.jpipe.freemarker.tag.ParamTag"?new() />-->
-<html>
+<html lang="en">
 <head>
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
