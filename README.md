@@ -155,6 +155,27 @@ public JpipeThreadPoolExecutor jpipeThreadPoolExecutor() {
 }
 ```
 
+- 通过 spring-boot starter
+    - pom.xml 依赖
+    ```xml
+    <dependency>
+        <groupId>top.ylonline.jpipe</groupId>
+        <artifactId>jpipe-spring-boot-starter</artifactId>
+        <version>${version}</version>
+    </dependency>
+    ```
+    
+    - application.yml 配置
+    ```yaml
+    jpipe:
+      # enabled: true
+      pool:
+        pre-start-all-core-threads: true
+        core-size: -1
+        max-size: 20
+        queue-size: 10
+        keep-alive: 10000
+    ```
 
 
 ### 定义一个 pagelet
@@ -187,7 +208,7 @@ public class PageletServiceTest implements PageletBean {
 ```html
 <%@ page contentType="text/html;charset=UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="jp" uri="http://java.yl-online.top/jsp/jpipe" %>
-<html>
+<html lang="en">
 <head>
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -288,7 +309,7 @@ public class MvcWevConfig {
 <#assign pipe="top.ylonline.jpipe.freemarker.tag.PipeTag"?new() />
 <#assign pagelet="top.ylonline.jpipe.freemarker.tag.PageletTag"?new() />
 <#assign param="top.ylonline.jpipe.freemarker.tag.ParamTag"?new() />
-<html>
+<html lang="en">
 <head>
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -330,7 +351,7 @@ FTL 是支持使用 JSP 标签的。如果你的项目本来没有使用 JSP 模
 使用 `<#assign jp=JspTaglibs["http://java.yl-online.top/jsp/jpipe"] />` 引入自定义 JSP 标签
 ```html
 <#assign jp=JspTaglibs["http://java.yl-online.top/jsp/jpipe"] />
-<html>
+<html lang="en">
 <head>
     <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
