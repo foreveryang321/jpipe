@@ -6,14 +6,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Created by YL on 2018/9/7
  */
-public class JPipeThreadFactory implements ThreadFactory {
+public class JpipeThreadFactory implements ThreadFactory {
     private final AtomicInteger count = new AtomicInteger(1);
 
     private final ThreadGroup group;
     private final String name;
     private final boolean daemon;
 
-    public JPipeThreadFactory(String name, boolean daemon) {
+    public JpipeThreadFactory(String name, boolean daemon) {
         SecurityManager s = System.getSecurityManager();
         group = (s != null) ? s.getThreadGroup() : Thread.currentThread().getThreadGroup();
         this.name = name;

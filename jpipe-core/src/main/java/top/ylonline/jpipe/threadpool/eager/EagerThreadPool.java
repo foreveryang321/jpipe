@@ -1,9 +1,9 @@
 package top.ylonline.jpipe.threadpool.eager;
 
 import top.ylonline.jpipe.common.Cts;
-import top.ylonline.jpipe.threadpool.JPipeThreadPoolExecutor;
+import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 import top.ylonline.jpipe.threadpool.common.AbortPolicyWithReport;
-import top.ylonline.jpipe.threadpool.common.JPipeThreadFactory;
+import top.ylonline.jpipe.threadpool.common.JpipeThreadFactory;
 import top.ylonline.jpipe.threadpool.common.Pool;
 import top.ylonline.jpipe.threadpool.common.ThreadPool;
 import top.ylonline.jpipe.threadpool.util.ThreadUtils;
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public class EagerThreadPool implements ThreadPool {
 
     @Override
-    public JPipeThreadPoolExecutor getExecutor(Pool pool) {
+    public JpipeThreadPoolExecutor getExecutor(Pool pool) {
         int coreSize = pool.getCoreSize();
         if (coreSize == -1) {
             coreSize = ThreadUtils.getSuitableThreadCount();
@@ -35,7 +35,7 @@ public class EagerThreadPool implements ThreadPool {
                 keepAlive,
                 TimeUnit.MILLISECONDS,
                 queue,
-                new JPipeThreadFactory(Cts.JPIPE_THREAD_NAME, true),
+                new JpipeThreadFactory(Cts.JPIPE_THREAD_NAME, true),
                 new AbortPolicyWithReport(Cts.JPIPE_THREAD_NAME)
         );
         if (pool.isPreStartAllCoreThreads()) {

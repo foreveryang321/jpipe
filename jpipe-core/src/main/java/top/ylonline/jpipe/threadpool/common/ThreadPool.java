@@ -1,6 +1,6 @@
 package top.ylonline.jpipe.threadpool.common;
 
-import top.ylonline.jpipe.threadpool.JPipeThreadPoolExecutor;
+import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 
 /**
  * @author Created by YL on 2018/9/10
@@ -13,5 +13,5 @@ public interface ThreadPool {
      *
      * @return thread pool
      */
-    JPipeThreadPoolExecutor getExecutor(Pool pool);
+    JpipeThreadPoolExecutor getExecutor(Pool pool);
 }

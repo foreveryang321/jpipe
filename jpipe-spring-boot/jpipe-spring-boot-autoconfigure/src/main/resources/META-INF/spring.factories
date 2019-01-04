@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-top.ylonline.jpipe.boot.autoconfigure.JPipeAutoConfiguration
+top.ylonline.jpipe.boot.autoconfigure.JpipeAutoConfiguration
 org.springframework.context.ApplicationListener=\
-top.ylonline.jpipe.boot.context.event.JPipeConfigApplicationListener
+top.ylonline.jpipe.boot.context.event.JpipeConfigApplicationListener

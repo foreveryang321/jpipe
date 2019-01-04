@@ -10,7 +10,7 @@ import java.util.concurrent.Executor;
 /**
  * @author Created by YL on 2018/9/17
  */
-public class JPipeThreadPoolFactoryBeanTest extends TestCase {
+public class JpipeThreadPoolFactoryBeanTest extends TestCase {
     private ApplicationContext ctx;
 
     @Override
@@ -28,17 +28,17 @@ public class JPipeThreadPoolFactoryBeanTest extends TestCase {
     }
 
     public void testSimple() throws Exception {
-        Executor executor = (Executor) this.ctx.getBean("jPipeThreadPool");
+        Executor executor = (Executor) this.ctx.getBean("jpipeThreadPool");
         System.out.println(executor);
     }
 
     public void testComposite() throws Exception {
-        Executor executor = (Executor) this.ctx.getBean("jPipeThreadPool-2");
+        Executor executor = (Executor) this.ctx.getBean("jpipeThreadPool-2");
         System.out.println(executor);
     }
 
     public void testBuilder() throws Exception {
-        Executor executor = (Executor) this.ctx.getBean("jPipeThreadPool-3");
+        Executor executor = (Executor) this.ctx.getBean("jpipeThreadPool-3");
         System.out.println(executor);
     }
 }

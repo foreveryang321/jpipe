@@ -13,11 +13,11 @@
     </bean>
 
     <!-- 工场模式 -->
-    <bean id="jPipeThreadPool" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolFactoryBean">
+    <bean id="jpipeThreadPool" class="top.ylonline.jpipe.threadpool.util.JpipeThreadPoolFactoryBean">
         <property name="pool" ref="pool-1"/>
     </bean>
 
-    <bean id="jPipeThreadPool-2" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolFactoryBean">
+    <bean id="jpipeThreadPool-2" class="top.ylonline.jpipe.threadpool.util.JpipeThreadPoolFactoryBean">
         <property name="pool">
             <bean class="top.ylonline.jpipe.threadpool.common.Pool">
                 <property name="coreSize" value="4"/>
@@ -30,7 +30,7 @@
     </bean>
 
     <!-- builder 模式 -->
-    <bean id="jPipeThreadPoolBuilder" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolBuilder">
+    <bean id="jpipeThreadPoolBuilder" class="top.ylonline.jpipe.threadpool.util.JpipeThreadPoolBuilder">
         <property name="pool">
             <bean class="top.ylonline.jpipe.threadpool.common.Pool">
                 <property name="coreSize" value="1"/>
@@ -41,5 +41,5 @@
             </bean>
         </property>
     </bean>
-    <bean id="jPipeThreadPool-3" factory-bean="jPipeThreadPoolBuilder" factory-method="build"/>
+    <bean id="jpipeThreadPool-3" factory-bean="jpipeThreadPoolBuilder" factory-method="build"/>
 </beans>

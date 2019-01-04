@@ -11,7 +11,7 @@
     <artifactId>jpipe-spring-boot-parent</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>JPipe Spring Boot Parent</description>
+    <description>Jpipe Spring Boot Parent</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -12,48 +12,48 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-import top.ylonline.jpipe.boot.config.JPipeConfig;
+import top.ylonline.jpipe.boot.config.JpipeConfig;
 import top.ylonline.jpipe.common.Cts;
-import top.ylonline.jpipe.freemarker.tag.JPipeTags;
+import top.ylonline.jpipe.freemarker.core.JpipeModel;
 import top.ylonline.jpipe.jsp.tag.PipeTag;
-import top.ylonline.jpipe.spring.JPipeSpringFactoryBean;
-import top.ylonline.jpipe.threadpool.JPipeThreadPoolExecutor;
+import top.ylonline.jpipe.spring.JpipeSpringFactoryBean;
+import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 import top.ylonline.jpipe.threadpool.common.Pool;
-import top.ylonline.jpipe.threadpool.util.JPipeThreadPoolBuilder;
+import top.ylonline.jpipe.threadpool.util.JpipeThreadPoolBuilder;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.jsp.tagext.TagSupport;
 import java.util.ArrayList;
 import java.util.List;
 
-import static top.ylonline.jpipe.boot.util.JPipeUtils.FREEMARKER_SHARED_VARIABLE;
+import static top.ylonline.jpipe.boot.util.JpipeUtils.FREEMARKER_SHARED_VARIABLE;
 
 /**
- * JPipe configuration
+ * Jpipe configuration
  *
  * @author Created by YL on 2018/8/15
  */
 @Configuration
 @ConditionalOnProperty(prefix = Cts.JPIPE_PREFIX, name = "enabled", matchIfMissing = true, havingValue = "true")
 @ConditionalOnClass(Pool.class)
-@EnableConfigurationProperties(JPipeConfig.class)
-public class JPipeAutoConfiguration {
-    private JPipeConfig jPipeConfig;
+@EnableConfigurationProperties(JpipeConfig.class)
+public class JpipeAutoConfiguration {
+    private JpipeConfig jpipeConfig;
 
-    public JPipeAutoConfiguration(JPipeConfig jPipeConfig) {
-        this.jPipeConfig = jPipeConfig;
+    public JpipeAutoConfiguration(JpipeConfig jpipeConfig) {
+        this.jpipeConfig = jpipeConfig;
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public JPipeSpringFactoryBean jPipeSpringFactoryBean() {
-        return new JPipeSpringFactoryBean();
+    public JpipeSpringFactoryBean jpipeSpringFactoryBean() {
+        return new JpipeSpringFactoryBean();
     }
 
     @Bean
-    public JPipeThreadPoolExecutor executor() {
-        Pool pool = jPipeConfig.getPool();
-        JPipeThreadPoolBuilder builder = new JPipeThreadPoolBuilder();
+    public JpipeThreadPoolExecutor executor() {
+        Pool pool = jpipeConfig.getPool();
+        JpipeThreadPoolBuilder builder = new JpipeThreadPoolBuilder();
         builder.setPool(pool);
         return builder.build();
     }
@@ -72,10 +72,10 @@ public class JPipeAutoConfiguration {
             PipeTag.class,
             TagSupport.class
     })
-    protected static class JPipeJspTagForFreemarkerConfiguration {
+    protected static class JpipeJspTagForFreemarkerConfiguration {
         private FreeMarkerConfigurer freeMarkerConfigurer;
 
-        public JPipeJspTagForFreemarkerConfiguration(FreeMarkerConfigurer freeMarkerConfigurer) {
+        public JpipeJspTagForFreemarkerConfiguration(FreeMarkerConfigurer freeMarkerConfigurer) {
             this.freeMarkerConfigurer = freeMarkerConfigurer;
         }
 
@@ -83,8 +83,7 @@ public class JPipeAutoConfiguration {
         @PostConstruct
         public void setConfigurer() {
             List/*<String>*/ tmpList = new ArrayList<>();
-            tmpList.add("/META-INF/JPipe.tld");
-            // classpathTlds.add("/META-INF/JPipe.tld");
+            tmpList.add("/META-INF/Jpipe.tld");
             TaglibFactory factory = freeMarkerConfigurer.getTaglibFactory();
             List/*<String>*/ classpathTlds = factory.getClasspathTlds();
             if (classpathTlds.size() > 0) {
@@ -107,11 +106,11 @@ public class JPipeAutoConfiguration {
      */
     @Configuration
     @ConditionalOnBean(value = freemarker.template.Configuration.class)
-    @ConditionalOnClass(JPipeTags.class)
-    protected static class JPipeFreemarkerConfiguration {
+    @ConditionalOnClass(JpipeModel.class)
+    protected static class JpipeFreemarkerConfiguration {
         private freemarker.template.Configuration configuration;
 
-        public JPipeFreemarkerConfiguration(freemarker.template.Configuration configuration) {
+        public JpipeFreemarkerConfiguration(freemarker.template.Configuration configuration) {
             this.configuration = configuration;
         }
 
@@ -119,7 +118,7 @@ public class JPipeAutoConfiguration {
         public void setConfiguration() {
             Version version = freemarker.template.Configuration.getVersion();
             DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(version).build();
-            this.configuration.setSharedVariable(FREEMARKER_SHARED_VARIABLE, new JPipeTags(wrapper));
+            this.configuration.setSharedVariable(FREEMARKER_SHARED_VARIABLE, new JpipeModel(wrapper));
         }
     }
 }

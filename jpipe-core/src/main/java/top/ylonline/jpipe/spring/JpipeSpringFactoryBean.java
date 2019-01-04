@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContextAware;
 /**
  * @author Created by YL on 2018/9/17
  */
-public class JPipeSpringFactoryBean implements ApplicationContextAware, InitializingBean {
+public class JpipeSpringFactoryBean implements ApplicationContextAware, InitializingBean {
     private ApplicationContext context;
 
     @Override
@@ -18,6 +18,6 @@ public class JPipeSpringFactoryBean implements ApplicationContextAware, Initiali
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        JPipeSpringFactory.setContext(this.context);
+        JpipeSpringFactory.setContext(this.context);
     }
 }

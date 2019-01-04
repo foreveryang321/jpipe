@@ -53,8 +53,8 @@ public class PageletTag extends BodyTagSupport implements ParamParent {
         if (!((parent = this.getParent()) instanceof PipeTag)) {
             throw new JspTagException("PAGELET OUTSIDE PIPE");
         }
-        PipeTag jPipeTag = (PipeTag) parent;
-        Render render = jPipeTag.getRender();
+        PipeTag jpipeTag = (PipeTag) parent;
+        Render render = jpipeTag.getRender();
 
         Pagelet pagelet = new Pagelet(this.domId, this.templateId, this.bean, this.jsMethod);
         pagelet.setParams(this.parameters);

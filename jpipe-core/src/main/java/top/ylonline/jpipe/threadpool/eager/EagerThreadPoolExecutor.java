@@ -1,6 +1,6 @@
 package top.ylonline.jpipe.threadpool.eager;
 
-import top.ylonline.jpipe.threadpool.JPipeThreadPoolExecutor;
+import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author Created by YL on 2018/9/7
  */
-public class EagerThreadPoolExecutor extends JPipeThreadPoolExecutor {
+public class EagerThreadPoolExecutor extends JpipeThreadPoolExecutor {
     /**
      * The number of tasks submitted but not yet finished.
      * This number is always greater or equal to {@link #getActiveCount()}.

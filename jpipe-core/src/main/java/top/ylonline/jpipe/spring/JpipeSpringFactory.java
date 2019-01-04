@@ -7,12 +7,12 @@ import org.springframework.context.ApplicationContext;
  *
  * @author Created by YL on 2018/9/17
  */
-public class JPipeSpringFactory {
+public class JpipeSpringFactory {
     private static ApplicationContext context = null;
 
     public static void setContext(ApplicationContext context) {
-        if (JPipeSpringFactory.context == null) {
-            JPipeSpringFactory.context = context;
+        if (JpipeSpringFactory.context == null) {
+            JpipeSpringFactory.context = context;
         }
     }
 

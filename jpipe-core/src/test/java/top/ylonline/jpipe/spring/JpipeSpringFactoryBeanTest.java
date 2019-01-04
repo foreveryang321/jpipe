@@ -7,19 +7,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * @author Created by YL on 2018/9/17
  */
-public class JPipeSpringFactoryBeanTest extends TestCase {
+public class JpipeSpringFactoryBeanTest extends TestCase {
     private ApplicationContext ctx;
 
     @Override
     public void setUp() throws Exception {
-        this.ctx = new ClassPathXmlApplicationContext("JPipeSpringFactoryBean.xml");
+        this.ctx = new ClassPathXmlApplicationContext("JpipeSpringFactoryBean.xml");
     }
 
     public void testContext() {
-        JPipeSpringFactoryBean bean1 = this.ctx.getBean("jPipeSpringFactoryBean",
-                JPipeSpringFactoryBean.class);
-        JPipeSpringFactoryBean bean2 = JPipeSpringFactory.getBean("jPipeSpringFactoryBean",
-                JPipeSpringFactoryBean.class);
+        JpipeSpringFactoryBean bean1 = this.ctx.getBean("jpipeSpringFactoryBean",
+                JpipeSpringFactoryBean.class);
+        JpipeSpringFactoryBean bean2 = JpipeSpringFactory.getBean("jpipeSpringFactoryBean",
+                JpipeSpringFactoryBean.class);
         assertSame(bean1, bean2);
     }
 }

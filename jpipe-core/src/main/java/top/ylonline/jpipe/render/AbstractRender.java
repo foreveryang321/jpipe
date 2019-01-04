@@ -7,8 +7,8 @@ import top.ylonline.jpipe.job.Job;
 import top.ylonline.jpipe.job.JobResult;
 import top.ylonline.jpipe.model.Pagelet;
 import top.ylonline.jpipe.model.PageletResult;
-import top.ylonline.jpipe.spring.JPipeSpringFactory;
-import top.ylonline.jpipe.threadpool.JPipeThreadPoolExecutor;
+import top.ylonline.jpipe.spring.JpipeSpringFactory;
+import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +73,7 @@ public abstract class AbstractRender implements Render {
             return;
         }
         int size = pagelets.size();
-        Executor executor = JPipeSpringFactory.getBean(JPipeThreadPoolExecutor.class);
+        Executor executor = JpipeSpringFactory.getBean(JpipeThreadPoolExecutor.class);
         CompletionService<JobResult> service = new ExecutorCompletionService<>(executor);
         // 提交任务
         for (Pagelet pagelet : pagelets) {

@@ -63,7 +63,7 @@ public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {
                 String dateStr = sdf.format(new Date());
                 FileOutputStream jstackStream = null;
                 try {
-                    jstackStream = new FileOutputStream(new File(dumpPath, "JPipe_JStack.log" + "." + dateStr));
+                    jstackStream = new FileOutputStream(new File(dumpPath, "Jpipe_JStack.log" + "." + dateStr));
                     JVMUtils.jstack(jstackStream);
                 } catch (Throwable t) {
                     log.error("dump jstack error", t);

@@ -1,8 +1,8 @@
-# JPipe Project
+# Jpipe Project
 
 A Java implementation of Facebook's bigPipe technology.
 
-JPipe是通过自定义标签实现的，所以对后端代码零侵入。
+Jpipe 是通过自定义标签实现的，所以对后端代码零侵入。
 
 > HTML 是完成前台页面的功能，而自定义标签可以在后台完成某些操作。
 
@@ -27,7 +27,8 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
 | 属性                       | 类型    | 是否必填 | 缺省值 | 说明             | 描述                                                         |
 | -------------------------- | ------- | -------- | ------ | ---------------- | ------------------------------------------------------------ |
 | core-size                  | int     | 否       | -1     | 核心线程数       | 最小空闲线程数，无论如何都会存活的最小线程数                 |
-| max-size                   | int     | 否       | 1024   | 最大线程数       | JPipe 能创建用来处理 pagelet 的最大线程数                    |
+| max-size                   | int     | 否       | 1024   | 最大线程数       | Jpipe 能创建用来处理 pagelet 的最大线程数               
+     |
 | queue-size                 | int     | 否       | 1024   | 最大等待对列数   | 请求并发大于 max-size，则被放入队列等待                      |
 | keep-alive                 | long    | 否       | 60000  | 最大空闲时间(ms) | 超过这个空闲时间，且线程数大于 core-size 的，被回收直到线程数等于core-size |
 | pre-start-all-core-threads | boolean | 否       | false  | 预热线程池       | 是否预先启动 core-size 个线程                                |
@@ -64,7 +65,7 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
 
 ### 与Spring集成
 
-- 通过`JPipeThreadPoolFactoryBean`类
+- 通过`JpipeThreadPoolFactoryBean`类
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -73,7 +74,7 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="top.ylonline.jpipe.spring.JPipeSpringFactoryBean"/>
+    <bean class="top.ylonline.jpipe.spring.JpipeSpringFactoryBean"/>
     
     <bean id="pool-1" class="top.ylonline.jpipe.threadpool.common.Pool">
         <property name="coreSize" value="-1"/>
@@ -84,12 +85,12 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
     </bean>
 
     <!-- 工场模式 -->
-    <bean class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolFactoryBean">
+    <bean class="top.ylonline.jpipe.threadpool.util.JpipeThreadPoolFactoryBean">
         <property name="pool" ref="pool-1"/>
     </bean>
 
     <!-- 或者 
-    <bean class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolFactoryBean">
+    <bean class="top.ylonline.jpipe.threadpool.util.JpipeThreadPoolFactoryBean">
         <property name="pool">
             <bean class="top.ylonline.jpipe.threadpool.common.Pool">
                 <property name="coreSize" value="4"/>
@@ -106,7 +107,7 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
 
 
 
-- 通过`JPipeThreadPoolBuilder`类
+- 通过`JpipeThreadPoolBuilder`类
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -115,10 +116,10 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="top.ylonline.jpipe.spring.JPipeSpringFactoryBean"/>
+    <bean class="top.ylonline.jpipe.spring.JpipeSpringFactoryBean"/>
     
     <!-- builder 模式 -->
-    <bean id="jPipeThreadPoolBuilder" class="top.ylonline.jpipe.threadpool.util.JPipeThreadPoolBuilder">
+    <bean id="jpipeThreadPoolBuilder" class="top.ylonline.jpipe.threadpool.util.JpipeThreadPoolBuilder">
         <property name="pool">
             <bean class="top.ylonline.jpipe.threadpool.common.Pool">
                 <property name="coreSize" value="1"/>
@@ -129,7 +130,7 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
             </bean>
         </property>
     </bean>
-    <bean id="jPipeThreadPool-3" factory-bean="jPipeThreadPoolBuilder" factory-method="build"/>
+    <bean id="jpipeThreadPool-3" factory-bean="jpipeThreadPoolBuilder" factory-method="build"/>
 </beans>
 ```
 
@@ -137,12 +138,12 @@ JPipe是通过自定义标签实现的，所以对后端代码零侵入。
 
 ```java
 @Bean
-public JPipeSpringFactoryBean PipeSpringFactoryBean(){
-    return new JPipeSpringFactoryBean();
+public JpipeSpringFactoryBean jpipeSpringFactoryBean(){
+    return new JpipeSpringFactoryBean();
 }
 
 @Bean
-public JPipeThreadPoolExecutor jPipeThreadPoolExecutor() {
+public JpipeThreadPoolExecutor jpipeThreadPoolExecutor() {
     Pool pool = new Pool();
     pool.setCoreSize(10);
     pool.setMaxSize(1024);
@@ -150,7 +151,7 @@ public JPipeThreadPoolExecutor jPipeThreadPoolExecutor() {
     pool.getKeepAlive(60000);
     pool.getQueueSize(512);
     // return new EagerThreadPool().getExecutor(pool);
-    return new JPipeThreadPoolBuilder(pool).build();
+    return new JpipeThreadPoolBuilder(pool).build();
 }
 ```
 
@@ -228,8 +229,8 @@ public class PageletServiceTest implements PageletBean {
 </head>
 <body>
 <h1>index</h1>
-<div id="pagelet1">JPipe 分块会替换这里的内容 1</div>
-<div id="pagelet2">JPipe 分块会替换这里的内容 2</div>
+<div id="pagelet1">Jpipe 分块会替换这里的内容 1</div>
+<div id="pagelet2">Jpipe 分块会替换这里的内容 2</div>
 <jp:pipe>
     <jp:pagelet domId="pagelet1" bean="t_pagelet_1">
         <jp:param name="id" value="${id}"/>
@@ -261,7 +262,7 @@ public class MvcWevConfig {
     public void setConfiguration() {
         Version version = freemarker.template.Configuration.getVersion();
         DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(version).build();
-        this.configuration.setSharedVariable("jp", new JPipeTags(wrapper));
+        this.configuration.setSharedVariable("jp", new JpipeModel(wrapper));
     }
 }
 ```
@@ -371,8 +372,8 @@ FTL 是支持使用 JSP 标签的。如果你的项目本来没有使用 JSP 模
 </head>
 <body>
 <h1>index</h1>
-<div id="pagelet1">JPipe 分块会替换这里的内容 1</div>
-<div id="pagelet2">JPipe 分块会替换这里的内容 2</div>
+<div id="pagelet1">Jpipe 分块会替换这里的内容 1</div>
+<div id="pagelet2">Jpipe 分块会替换这里的内容 2</div>
 <@jp.pipe>
     <@jp.pagelet domId="pagelet1" bean="t_pagelet_1">
         <@jp.param name="id" value="${id}"/>
@@ -422,7 +423,7 @@ public class MvcWevConfig {
     @PostConstruct
     public void loadClassPathTlds() {
         List<String> classpathTlds = new ArrayList<>();
-        classpathTlds.add("/META-INF/JPipe.tld");
+        classpathTlds.add("/META-INF/Jpipe.tld");
         freeMarkerConfigurer.getTaglibFactory().setClasspathTlds(classpathTlds);
     }
 }

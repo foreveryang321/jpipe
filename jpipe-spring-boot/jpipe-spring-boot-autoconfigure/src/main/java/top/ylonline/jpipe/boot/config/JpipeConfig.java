@@ -7,13 +7,13 @@ import top.ylonline.jpipe.common.Cts;
 import top.ylonline.jpipe.threadpool.common.Pool;
 
 /**
- * JPipe 配置
+ * Jpipe 配置
  *
  * @author Created by YL on 2018/9/11
  */
 @ConfigurationProperties(prefix = Cts.JPIPE_PREFIX)
 @Data
-public class JPipeConfig {
+public class JpipeConfig {
     private boolean enabled = true;
 
     @NestedConfigurationProperty

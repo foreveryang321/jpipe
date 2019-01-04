@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import top.ylonline.jpipe.api.PageletBean;
 import top.ylonline.jpipe.common.Cts;
-import top.ylonline.jpipe.spring.JPipeSpringFactory;
+import top.ylonline.jpipe.spring.JpipeSpringFactory;
 
 import java.util.Map;
 
@@ -45,6 +45,6 @@ public class Pagelet {
     private Map<String, String> params;
 
     public PageletBean getPageletBean() {
-        return JPipeSpringFactory.getBean(this.bean, PageletBean.class);
+        return JpipeSpringFactory.getBean(this.bean, PageletBean.class);
     }
 }

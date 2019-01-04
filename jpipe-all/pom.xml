@@ -11,7 +11,7 @@
     <artifactId>jpipe</artifactId>
     <name>jpipe-all</name>
     <packaging>jar</packaging>
-    <description>The all in one project of JPipe</description>
+    <description>The all in one project of Jpipe</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

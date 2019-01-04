@@ -1,26 +1,26 @@
 package top.ylonline.jpipe.threadpool.util;
 
 import lombok.Data;
-import top.ylonline.jpipe.threadpool.JPipeThreadPoolExecutor;
+import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 import top.ylonline.jpipe.threadpool.common.Pool;
 import top.ylonline.jpipe.threadpool.eager.EagerThreadPool;
 
 /**
- * JPipe 线程池生成器
+ * Jpipe 线程池生成器
  *
  * @author Created by YL on 2018/9/16
  */
 @Data
-public class JPipeThreadPoolBuilder {
+public class JpipeThreadPoolBuilder {
     private Pool pool;
 
-    public JPipeThreadPoolBuilder() {}
+    public JpipeThreadPoolBuilder() {}
 
-    public JPipeThreadPoolBuilder(Pool pool) {
+    public JpipeThreadPoolBuilder(Pool pool) {
         this.pool = pool;
     }
 
-    public JPipeThreadPoolExecutor build() {
+    public JpipeThreadPoolExecutor build() {
         return new EagerThreadPool().getExecutor(this.pool);
     }
 }

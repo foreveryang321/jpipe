@@ -14,7 +14,7 @@ import java.util.Set;
 @Slf4j
 public class Version {
     /**
-     * JPipe implementation version, usually is jar version.
+     * Jpipe implementation version, usually is jar version.
      */
     private static final String VERSION = getVersion(Version.class, "");
 

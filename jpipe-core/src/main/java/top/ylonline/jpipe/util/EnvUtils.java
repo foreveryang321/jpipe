@@ -22,13 +22,13 @@
 // public abstract class EnvUtils {
 //
 //     /**
-//      * Filters JPipe Properties from {@link ConfigurableEnvironment}
+//      * Filters Jpipe Properties from {@link ConfigurableEnvironment}
 //      *
 //      * @param environment {@link ConfigurableEnvironment}
 //      *
 //      * @return Read-only SortedMap
 //      */
-//     public static SortedMap<String, Object> filterJPipeProperties(ConfigurableEnvironment environment) {
+//     public static SortedMap<String, Object> filterJpipeProperties(ConfigurableEnvironment environment) {
 //         SortedMap<String, Object> map = new TreeMap<>();
 //         Map<String, Object> properties = EnvUtils.extractProperties(environment);
 //         for (Map.Entry<String, Object> entry : properties.entrySet()) {

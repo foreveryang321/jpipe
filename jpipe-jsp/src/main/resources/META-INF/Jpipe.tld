@@ -5,13 +5,13 @@
             http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
         version="2.1">
     <description>A Java implementation of Facebook's bigPipe technology</description>
-    <display-name>JPipe core</display-name>
+    <display-name>Jpipe core</display-name>
     <tlib-version>1.0</tlib-version>
     <short-name>jpipe</short-name>
     <uri>http://java.yl-online.top/jsp/jpipe</uri>
 
     <tag>
-        <description>JPipe 父节点</description>
+        <description>Jpipe 父节点</description>
         <name>pipe</name>
         <tag-class>top.ylonline.jpipe.jsp.tag.PipeTag</tag-class>
         <body-content>JSP</body-content>

@@ -7,7 +7,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
-    <description>The parent project of JPipe</description>
+    <description>The parent project of Jpipe</description>
     <url>https://github.com/foreveryang321/jpipe</url>
 
     <scm>
