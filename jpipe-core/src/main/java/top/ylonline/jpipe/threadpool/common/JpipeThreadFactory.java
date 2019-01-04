@@ -4,6 +4,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * Wrapped thread factory for better use.
+ *
  * @author Created by YL on 2018/9/7
  */
 public class JpipeThreadFactory implements ThreadFactory {
@@ -22,7 +24,7 @@ public class JpipeThreadFactory implements ThreadFactory {
 
     @Override
     public Thread newThread(Runnable runnable) {
-        Thread thread = new Thread(group, runnable, name + "-" + count.getAndIncrement(), 0);
+        Thread thread = new Thread(group, runnable, name + "-thread-" + count.getAndIncrement(), 0);
         thread.setDaemon(daemon);
         return thread;
     }
