@@ -1,6 +1,7 @@
 package top.ylonline.jpipe.threadpool.common;
 
 import lombok.extern.slf4j.Slf4j;
+import top.ylonline.jpipe.common.Cts;
 import top.ylonline.jpipe.util.JVMUtils;
 
 import java.io.File;
@@ -8,10 +9,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Created by YL on 2018/9/10
@@ -21,6 +24,7 @@ public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {
     private final String threadName;
 
     private static volatile long lastPrintTime = 0;
+    private static final long DUMP_TIME = 10 * 60 * 1000;
 
     private static Semaphore guard = new Semaphore(1);
 
@@ -46,7 +50,7 @@ public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {
         long now = System.currentTimeMillis();
 
         // dump every 10 minutes
-        if (now - lastPrintTime < 10 * 60 * 1000) {
+        if (now - lastPrintTime < DUMP_TIME) {
             return;
         }
 
@@ -54,32 +58,33 @@ public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {
             return;
         }
         // 启动一条线程 dump 内存快照
-        Executors.newSingleThreadExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                String dumpPath = System.getProperty("user.home");
-                // window system don't support ":" in file name
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-                String dateStr = sdf.format(new Date());
-                FileOutputStream jstackStream = null;
-                try {
-                    jstackStream = new FileOutputStream(new File(dumpPath, "Jpipe_JStack.log" + "." + dateStr));
-                    JVMUtils.jstack(jstackStream);
-                } catch (Throwable t) {
-                    log.error("dump jstack error", t);
-                } finally {
-                    guard.release();
-                    if (jstackStream != null) {
-                        try {
-                            jstackStream.flush();
-                            jstackStream.close();
-                        } catch (IOException e) {
-                            // ignore
-                        }
+        ExecutorService executor = new ThreadPoolExecutor(1, 1,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<>(), new JpipeThreadFactory("dump-exec", false));
+        executor.execute(() -> {
+            String dumpPath = System.getProperty("user.home");
+            // window system don't support ":" in file name
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            String dateStr = sdf.format(new Date());
+            FileOutputStream jstackStream = null;
+            try {
+                jstackStream = new FileOutputStream(new File(dumpPath,
+                        Cts.JPIPE_PREFIX + "_JStack.log." + dateStr));
+                JVMUtils.jstack(jstackStream);
+            } catch (Throwable t) {
+                log.error("dump jstack error", t);
+            } finally {
+                guard.release();
+                if (jstackStream != null) {
+                    try {
+                        jstackStream.flush();
+                        jstackStream.close();
+                    } catch (IOException e) {
+                        // ignore
                     }
                 }
-                lastPrintTime = System.currentTimeMillis();
             }
+            lastPrintTime = System.currentTimeMillis();
         });
     }
 }
