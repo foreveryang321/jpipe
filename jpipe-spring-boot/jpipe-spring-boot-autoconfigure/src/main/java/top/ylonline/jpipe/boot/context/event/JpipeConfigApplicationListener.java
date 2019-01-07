@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.core.annotation.Order;
 import top.ylonline.jpipe.common.Version;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static top.ylonline.jpipe.boot.util.JpipeUtils.JPIPE_GITHUB_URL;
 import static top.ylonline.jpipe.boot.util.JpipeUtils.LINE_SEPARATOR;
 
@@ -18,15 +20,21 @@ import static top.ylonline.jpipe.boot.util.JpipeUtils.LINE_SEPARATOR;
 @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
 @Slf4j
 public class JpipeConfigApplicationListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+    private static AtomicBoolean processed = new AtomicBoolean(false);
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+        if (processed.get()) {
+            return;
+        }
+
         String bannerText = buildBannerText();
         if (log.isInfoEnabled()) {
             log.info(bannerText);
         } else {
             System.out.print(bannerText);
         }
+        processed.compareAndSet(false, true);
     }
 
     private String buildBannerText() {
