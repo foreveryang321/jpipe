@@ -2,7 +2,7 @@ package top.ylonline.jpipe.threadpool.common;
 
 import lombok.extern.slf4j.Slf4j;
 import top.ylonline.jpipe.common.Cts;
-import top.ylonline.jpipe.util.JVMUtils;
+import top.ylonline.jpipe.util.JvmUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,7 +70,7 @@ public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {
             try {
                 jstackStream = new FileOutputStream(new File(dumpPath,
                         Cts.JPIPE_PREFIX + "_JStack.log." + dateStr));
-                JVMUtils.jstack(jstackStream);
+                JvmUtils.jstack(jstackStream);
             } catch (Throwable t) {
                 log.error("dump jstack error", t);
             } finally {

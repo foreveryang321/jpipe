@@ -6,8 +6,8 @@ import freemarker.template.DefaultObjectWrapperBuilder;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
-import freemarker.template.TemplateModelException;
 import lombok.extern.slf4j.Slf4j;
+import top.ylonline.jpipe.common.JpipeException;
 import top.ylonline.jpipe.freemarker.model.FmPagelet;
 import top.ylonline.jpipe.render.AbstractRender;
 
@@ -43,8 +43,8 @@ public class FmRender extends AbstractRender<FmPagelet> {
                 this.out.flush();
             }
         } catch (IOException e) {
-            log.error("flush 数据到客户端异常", e);
             // trouble = true;
+            throw new JpipeException("flush data to client error.", e);
         }
     }
 
@@ -56,7 +56,7 @@ public class FmRender extends AbstractRender<FmPagelet> {
         try {
             TemplateModel attribute = env.getVariable(var);
             if (attribute != null) {
-                throw new RuntimeException("Already has " + var + " in environment variable.");
+                throw new JpipeException("Already has " + var + " in environment variable.");
             }
             env.setVariable(var, new DefaultObjectWrapperBuilder(Configuration.getVersion())
                     .build()
@@ -64,10 +64,8 @@ public class FmRender extends AbstractRender<FmPagelet> {
             StringWriter sw = new StringWriter();
             body.render(sw);
             return sw.toString();
-        } catch (TemplateModelException e) {
-            throw new RuntimeException("TemplateModelException", e);
         } catch (TemplateException | IOException e) {
-            throw new RuntimeException("TemplateException", e);
+            throw new JpipeException(e);
         }
     }
 

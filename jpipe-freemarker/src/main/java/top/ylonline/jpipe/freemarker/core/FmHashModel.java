@@ -9,7 +9,7 @@ import top.ylonline.jpipe.freemarker.tag.PipeTag;
 /**
  * Shortcut for injecting the tags into Freemarker
  * <pre>
- *     Usage: cfg.setSharedVeriable("jp", new JpipeModel());
+ *     Usage: cfg.setSharedVeriable(shared, new {@link FmHashModel}());
  * </pre>
  *
  * @author Created by YL on 2018/8/19

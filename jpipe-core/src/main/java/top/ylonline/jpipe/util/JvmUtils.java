@@ -10,7 +10,7 @@ import java.lang.management.ThreadMXBean;
 /**
  * @author Created by YL on 2018/9/10
  */
-public class JVMUtils {
+public class JvmUtils {
 
     public static void jstack(OutputStream stream) throws Exception {
         ThreadMXBean threadMxBean = ManagementFactory.getThreadMXBean();

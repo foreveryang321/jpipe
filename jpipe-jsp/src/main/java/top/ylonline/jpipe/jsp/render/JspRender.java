@@ -1,6 +1,7 @@
 package top.ylonline.jpipe.jsp.render;
 
 import lombok.extern.slf4j.Slf4j;
+import top.ylonline.jpipe.common.JpipeException;
 import top.ylonline.jpipe.jsp.model.JspPagelet;
 import top.ylonline.jpipe.render.AbstractRender;
 
@@ -34,8 +35,8 @@ public class JspRender extends AbstractRender<JspPagelet> {
                 this.out.flush();
             }
         } catch (IOException e) {
-            log.error("flush 数据到客户端异常", e);
             // trouble = true;
+            throw new JpipeException("flush data to client error.", e);
         }
     }
 
@@ -46,7 +47,7 @@ public class JspRender extends AbstractRender<JspPagelet> {
         String var = pagelet.getVar();
         Object attribute = context.getAttribute(var);
         if (attribute != null) {
-            throw new RuntimeException("Already has " + var + " in context attribute.");
+            throw new JpipeException("Already has " + var + " in context attribute.");
         }
         context.setAttribute(var, data);
         StringWriter sw = new StringWriter();
@@ -54,7 +55,7 @@ public class JspRender extends AbstractRender<JspPagelet> {
             fragment.invoke(sw);
             return sw.toString();
         } catch (JspException | IOException e) {
-            throw new RuntimeException("JspException", e);
+            throw new JpipeException(e);
         }
     }
 

@@ -4,6 +4,7 @@ package top.ylonline.jpipe.util;
  * @author Created by YL on 2018/11/16
  */
 public class StrUtils {
+
     public static boolean isEmpty(CharSequence cs) {
         return cs == null || cs.length() == 0;
     }
@@ -39,14 +40,18 @@ public class StrUtils {
     }
 
     public static boolean isNumeric(String s) {
-        if (s == null)
+        if (s == null) {
             return false;
+        }
         int i = s.length();
-        if (i <= 0)
+        if (i <= 0) {
             return false;
-        for (int j = 0; j < i; j++)
-            if (!Character.isDigit(s.charAt(j)))
+        }
+        for (int j = 0; j < i; j++) {
+            if (!Character.isDigit(s.charAt(j))) {
                 return false;
+            }
+        }
         return true;
     }
 }
