@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+            http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+    <description>A Java implementation of Facebook's bigPipe technology</description>
+    <display-name>Jpipe core</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>jpipe</short-name>
+    <uri>http://java.yl-online.top/jsp/jpipe</uri>
+
+    <tag>
+        <description>Jpipe 父节点</description>
+        <name>pipe</name>
+        <tag-class>top.ylonline.jpipe.jsp.tag.PipeTag</tag-class>
+        <body-content>JSP</body-content>
+        <attribute>
+            <description>是否异步执行，默认：true</description>
+            <name>async</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+        </attribute>
+    </tag>
+    <tag>
+        <description>This is a pagelet tag that marks pagelets.</description>
+        <name>pagelet</name>
+        <tag-class>top.ylonline.jpipe.jsp.tag.PageletTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <description>html document id</description>
+            <name>domid</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>pagelet component/spring bean name. pagelet 对象实现引用</description>
+            <name>bean</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>The name of the view object variable that will be used inside the pagelet.</description>
+            <name>var</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>参数配置</description>
+            <name>uri</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>js method</description>
+            <name>jsmethod</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+</taglib>

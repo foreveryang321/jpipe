@@ -1,0 +1,22 @@
+debug: false
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  session:
+    store-type: none
+  aop:
+    proxy-target-class: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+jpipe:
+  pool:
+    pre-start-all-core-threads: true
+    core-size: -1
+    max-size: 20
+    queue-size: 10
+    keep-alive: 10000

@@ -8,28 +8,20 @@
         <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jpipe-core</artifactId>
+    <artifactId>jpipe-spring-boot-project</artifactId>
     <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>jpipe-spring-boot-parent</module>
+        <module>jpipe-spring-boot-autoconfigure</module>
+        <module>jpipe-spring-boot-starter</module>
+        <module>jpipe-spring-boot-demo</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-    </dependencies>
 </project>

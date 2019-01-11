@@ -1,0 +1,20 @@
+debug: false
+server:
+  port: 8080
+  servlet:
+    context-path: /
+spring:
+  session:
+    store-type: none
+  aop:
+    proxy-target-class: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  freemarker:
+    cache: false
+jpipe:
+  pool:
+    core-size: 8
+    max-size: 1024
+    keep-alive: 120000
+    queue-size: 2048

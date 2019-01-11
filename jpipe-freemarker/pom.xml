@@ -8,7 +8,7 @@
         <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>jpipe-core</artifactId>
+    <artifactId>jpipe-freemarker</artifactId>
     <name>${project.artifactId}</name>
 
     <properties>
@@ -19,17 +19,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>top.ylonline.jpipe</groupId>
+            <artifactId>jpipe-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
     </dependencies>
 </project>
