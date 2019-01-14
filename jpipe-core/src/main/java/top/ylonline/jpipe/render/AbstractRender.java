@@ -54,7 +54,9 @@ public abstract class AbstractRender<T extends Pagelet> implements Render<T> {
         if (log.isDebugEnabled()) {
             log.debug("async: {}, size: {}, pagelets: {}", async, this.pagelets.size(), this.pagelets);
         }
-        if (async) {
+
+        // if async = true and pagelet > 1
+        if (async && this.pagelets.size() > 1) {
             this.async(this.pagelets);
         } else {
             this.sync(this.pagelets);
