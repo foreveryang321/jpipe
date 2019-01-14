@@ -1,8 +1,8 @@
 package top.ylonline.jpipe.demo.pagelet;
 
-import top.ylonline.jpipe.api.PageletBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import top.ylonline.jpipe.api.PageletBean;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class TestPagelet2 implements PageletBean {
         Map<String, Object> data = new HashMap<>(params);
         data.put("info", "hello world2!");
         try {
-            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000));
+            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000) + 2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -21,7 +21,7 @@ public class TestPagelet2 implements PageletBean {
         Map<String, Object> data = new HashMap<>(params);
         data.put("info", "hello world2!");
         try {
-            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000));
+            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000) + 2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

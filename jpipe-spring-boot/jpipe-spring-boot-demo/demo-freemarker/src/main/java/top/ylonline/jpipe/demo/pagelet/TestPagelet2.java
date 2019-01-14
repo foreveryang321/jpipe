@@ -20,7 +20,7 @@ public class TestPagelet2 implements PageletBean {
     public Map<String, Object> doExec(final Map<String, String> params) {
         Map<String, Object> data = new HashMap<>(params);
         try {
-            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000));
+            TimeUnit.MILLISECONDS.sleep(new Random().nextInt(3000) + 2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

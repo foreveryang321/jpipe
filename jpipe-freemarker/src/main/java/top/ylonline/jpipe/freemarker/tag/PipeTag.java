@@ -29,6 +29,9 @@ import java.util.Map;
  * @since freemarker 2.3.11
  */
 public class PipeTag implements TemplateDirectiveModel {
+    /**
+     * top.ylonline.jpipe.freemarker.tag.PipeTag
+     */
     static final String V_NAME_RENDER = PipeTag.class.getName();
 
     @Override
@@ -55,6 +58,8 @@ public class PipeTag implements TemplateDirectiveModel {
         env.setVariable(V_NAME_RENDER, model);
 
         body.render(out);
+        // flush the frame to client first
+        out.flush();
 
         // async 默认：true
         boolean async = asyncModel == null || asyncModel.getAsBoolean();

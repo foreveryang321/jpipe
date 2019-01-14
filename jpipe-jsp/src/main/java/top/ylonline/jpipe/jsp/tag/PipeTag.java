@@ -39,7 +39,7 @@ public class PipeTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         try {
-            // 先把前面的html flush到浏览器渲染
+            // flush the frame to client first
             this.pageContext.getOut().flush();
         } catch (IOException e) {
             e.printStackTrace();
