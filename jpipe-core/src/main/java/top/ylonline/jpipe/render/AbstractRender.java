@@ -3,13 +3,18 @@ package top.ylonline.jpipe.render;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import lombok.extern.slf4j.Slf4j;
+import top.ylonline.jpipe.common.JpipeException;
 import top.ylonline.jpipe.job.Job;
 import top.ylonline.jpipe.job.JobResult;
 import top.ylonline.jpipe.model.Pagelet;
 import top.ylonline.jpipe.model.PageletResult;
 import top.ylonline.jpipe.spring.JpipeSpringFactory;
 import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
+import top.ylonline.jpipe.util.StrUtils;
 
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,25 +28,37 @@ import java.util.concurrent.ExecutorCompletionService;
  */
 @Slf4j
 public abstract class AbstractRender<T extends Pagelet> implements Render<T> {
+    private Writer out;
+    private final Object lock;
+    private String lineSeparator;
+
+    protected AbstractRender(Writer out) {
+        this.out = out;
+        ensureNotNull();
+        this.lock = this;
+        this.lineSeparator = java.security.AccessController.doPrivileged(
+                new sun.security.action.GetPropertyAction("line.separator"));
+    }
+
     /**
      * pagelet 分块任务
      */
     private List<T> pagelets;
 
     @Override
-    public void addPagelet(T t) {
-        if (t == null) {
+    public void addPagelet(T pagelet) {
+        if (pagelet == null) {
             throw new NullPointerException("pagelet can not be null");
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("pagelet: {}", t);
+            log.debug("pagelet: {}", pagelet);
         }
 
         if (pagelets == null) {
             this.pagelets = new ArrayList<>();
         }
-        this.pagelets.add(t);
+        this.pagelets.add(pagelet);
     }
 
     @Override
@@ -52,10 +69,9 @@ public abstract class AbstractRender<T extends Pagelet> implements Render<T> {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("async: {}, size: {}, pagelets: {}", async, this.pagelets.size(), this.pagelets);
+            log.debug("async: {}, size: {}", async, this.pagelets.size());
         }
 
-        // if async = true and pagelet > 1
         if (async && this.pagelets.size() > 1) {
             this.async(this.pagelets);
         } else {
@@ -64,21 +80,41 @@ public abstract class AbstractRender<T extends Pagelet> implements Render<T> {
     }
 
     /**
-     * flush 到客户端
-     *
-     * @param json 要 flush 到客户端的内容
-     */
-    protected abstract void writeAndFlush(String json);
-
-    /**
      * 解析成 html 返回
      *
-     * @param t    分片任务
-     * @param data 数据
+     * @param pagelet 分片任务
+     * @param data    执行分片任务返回的数据
      *
      * @return 返回 html 代码
      */
-    protected abstract String html(T t, Map<String, Object> data);
+    protected abstract String html(T pagelet, Map<String, Object> data);
+
+    private void println(String json) {
+        if (StrUtils.isBlank(json)) {
+            return;
+        }
+        try {
+            synchronized (lock) {
+                ensureNotNull();
+                out.write(json);
+                out.write(lineSeparator);
+                out.flush();
+            }
+        } catch (InterruptedIOException e) {
+            Thread.currentThread().interrupt();
+        } catch (IOException e) {
+            throw new JpipeException("flush data to client error", e);
+        }
+    }
+
+    /**
+     * Checks to make sure that the stream has not been closed
+     */
+    private void ensureNotNull() {
+        if (out == null) {
+            throw new NullPointerException("Stream cannot be null");
+        }
+    }
 
     /**
      * 异步执行分片任务
@@ -93,15 +129,15 @@ public abstract class AbstractRender<T extends Pagelet> implements Render<T> {
         Executor executor = JpipeSpringFactory.getBean(JpipeThreadPoolExecutor.class);
         CompletionService<JobResult<T>> service = new ExecutorCompletionService<>(executor);
         // 提交任务
-        for (T t : pagelets) {
-            service.submit(new Job<>(t));
+        for (T pagelet : pagelets) {
+            service.submit(new Job<>(pagelet));
         }
         // 取出任务结果
         for (int i = 0; i < size; i++) {
             try {
                 JobResult<T> jobResult = service.take().get();
                 String script = buildScript(jobResult);
-                writeAndFlush(script);
+                this.println(script);
             } catch (InterruptedException e) {
                 log.error("get task result with InterruptedException: {} ", e.getMessage(), e);
                 // 中断此线程，否则可能堵塞其他线程
@@ -121,43 +157,43 @@ public abstract class AbstractRender<T extends Pagelet> implements Render<T> {
         if (pagelets == null || pagelets.size() == 0) {
             return;
         }
-        for (T t : pagelets) {
+        for (T pagelet : pagelets) {
             String script;
             try {
-                Map<String, Object> data = t.getPageletBean().doExec(t.getParameters());
-                script = ok(t, data);
+                Map<String, Object> data = pagelet.getPageletBean().doExec(pagelet.getParameters());
+                script = ok(pagelet, data);
             } catch (Exception e) {
                 log.error("pagelet doGet error. message: {}", e.getMessage(), e);
-                script = error(t, e.getMessage());
+                script = error(pagelet, e.getMessage());
             }
-            writeAndFlush(script);
+            this.println(script);
         }
     }
 
     private String buildScript(JobResult<T> jobResult) {
-        T t = jobResult.getPagelet();
+        T pagelet = jobResult.getPagelet();
         if (jobResult.isSuccess()) {
             Map<String, Object> data = jobResult.getData();
-            return ok(t, data);
+            return ok(pagelet, data);
         } else {
             String message = jobResult.getMessage();
-            return error(t, message);
+            return error(pagelet, message);
         }
     }
 
-    private String ok(T t, Map<String, Object> data) {
-        String html = this.html(t, data);
-        PageletResult rs = new PageletResult(t.getDomid(), t.getBean(), html);
-        return buildScript(t.getJsmethod(), rs);
+    private String ok(T pagelet, Map<String, Object> data) {
+        String html = this.html(pagelet, data);
+        PageletResult rs = new PageletResult(pagelet.getDomid(), pagelet.getBean(), html);
+        return buildScript(pagelet.getJsmethod(), rs);
     }
 
-    private String error(T t, String message) {
+    private String error(T pagelet, String message) {
         PageletResult rs = new PageletResult();
         rs.setCode(-1);
         rs.setMessage(message);
-        rs.setId(t.getDomid());
-        rs.setBn(t.getBean());
-        return buildScript(t.getJsmethod(), rs);
+        rs.setId(pagelet.getDomid());
+        rs.setBn(pagelet.getBean());
+        return buildScript(pagelet.getJsmethod(), rs);
     }
 
     /**

@@ -21,38 +21,16 @@ import java.util.Map;
  */
 @Slf4j
 public class FmRender extends AbstractRender<FmPagelet> {
-    private Writer out;
-    private final Object lock;
-
-    private final String lineSeparator;
 
     public FmRender(Writer out) {
-        this.out = out;
-        this.lock = this;
-        this.lineSeparator = java.security.AccessController.doPrivileged(
-                new sun.security.action.GetPropertyAction("line.separator"));
+        super(out);
     }
 
     @Override
-    protected void writeAndFlush(String str) {
-        try {
-            synchronized (lock) {
-                ensureOpen();
-                this.out.write(str);
-                this.out.write(lineSeparator);
-                this.out.flush();
-            }
-        } catch (IOException e) {
-            // trouble = true;
-            throw new JpipeException("flush data to client error.", e);
-        }
-    }
-
-    @Override
-    protected String html(FmPagelet fmPagelet, Map<String, Object> data) {
-        Environment env = fmPagelet.getEnvironment();
-        TemplateDirectiveBody body = fmPagelet.getTemplateDirectiveBody();
-        String var = fmPagelet.getVar();
+    protected String html(FmPagelet pagelet, Map<String, Object> data) {
+        Environment env = pagelet.getEnvironment();
+        TemplateDirectiveBody body = pagelet.getTemplateDirectiveBody();
+        String var = pagelet.getVar();
         try {
             TemplateModel attribute = env.getVariable(var);
             if (attribute != null) {
@@ -68,14 +46,4 @@ public class FmRender extends AbstractRender<FmPagelet> {
             throw new JpipeException(e);
         }
     }
-
-    /**
-     * Checks to make sure that the stream has not been closed
-     */
-    private void ensureOpen() throws IOException {
-        if (this.out == null) {
-            throw new IOException("Stream closed");
-        }
-    }
-
 }

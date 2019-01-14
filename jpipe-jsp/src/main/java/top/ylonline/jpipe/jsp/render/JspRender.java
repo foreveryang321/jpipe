@@ -18,26 +18,9 @@ import java.util.Map;
  */
 @Slf4j
 public class JspRender extends AbstractRender<JspPagelet> {
-    private PrintWriter out;
-    private final Object lock;
 
     public JspRender(PrintWriter out) {
-        this.out = out;
-        this.lock = this;
-    }
-
-    @Override
-    protected void writeAndFlush(String json) {
-        try {
-            synchronized (lock) {
-                ensureOpen();
-                this.out.println(json);
-                this.out.flush();
-            }
-        } catch (IOException e) {
-            // trouble = true;
-            throw new JpipeException("flush data to client error.", e);
-        }
+        super(out);
     }
 
     @Override
@@ -56,15 +39,6 @@ public class JspRender extends AbstractRender<JspPagelet> {
             return sw.toString();
         } catch (JspException | IOException e) {
             throw new JpipeException(e);
-        }
-    }
-
-    /**
-     * Checks to make sure that the stream has not been closed
-     */
-    private void ensureOpen() throws IOException {
-        if (this.out == null) {
-            throw new IOException("Stream closed");
         }
     }
 }
