@@ -51,9 +51,7 @@ public class JpipeAutoConfiguration {
     @Bean
     public JpipeThreadPoolExecutor executor() {
         Pool pool = jpipeConfig.getPool();
-        JpipeThreadPoolBuilder builder = new JpipeThreadPoolBuilder();
-        builder.setPool(pool);
-        return builder.build();
+        return new JpipeThreadPoolBuilder(pool).build();
     }
 
     @Configuration
