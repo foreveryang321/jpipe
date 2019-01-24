@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Wrapped thread factory for better use.
  *
- * @author Created by YL on 2018/9/7
+ * @author YL
  */
 public class JpipeThreadFactory implements ThreadFactory {
     private final AtomicInteger count = new AtomicInteger(1);

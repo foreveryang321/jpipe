@@ -8,7 +8,7 @@ import java.util.concurrent.Callable;
 /**
  * 任务
  *
- * @author Created by YL on 2018/8/17
+ * @author YL
  */
 public class Job<T extends Pagelet> implements Callable<JobResult<T>> {
     private T pagelet;

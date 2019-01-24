@@ -24,7 +24,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
 
 /**
- * @author Created by YL on 2018/8/25
+ * @author YL
  */
 @Slf4j
 public abstract class AbstractRender<T extends Pagelet> implements Render<T> {

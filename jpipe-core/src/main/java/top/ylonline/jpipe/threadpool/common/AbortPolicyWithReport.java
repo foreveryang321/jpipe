@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Created by YL on 2018/9/10
+ * @author YL
  */
 @Slf4j
 public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {

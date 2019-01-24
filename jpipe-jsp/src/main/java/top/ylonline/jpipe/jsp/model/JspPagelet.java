@@ -8,7 +8,7 @@ import top.ylonline.jpipe.model.Pagelet;
 import javax.servlet.jsp.tagext.JspFragment;
 
 /**
- * @author Created by YL on 2018/8/10
+ * @author YL
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

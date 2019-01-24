@@ -3,7 +3,7 @@ package top.ylonline.jpipe.common;
 /**
  * 常量池
  *
- * @author Created by YL on 2018/8/20
+ * @author YL
  */
 public class Cts {
     public static final String SYMBOL_Q = "?";

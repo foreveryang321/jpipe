@@ -1,7 +1,7 @@
 package top.ylonline.jpipe.util;
 
 /**
- * @author Created by YL on 2018/11/16
+ * @author YL
  */
 public class StrUtils {
 

@@ -5,7 +5,7 @@
 // import java.util.Properties;
 //
 // /**
-//  * @author Created by YL on 2018/9/10
+//  * @author YL
 //  */
 // @Slf4j
 // public class ConfigUtils {

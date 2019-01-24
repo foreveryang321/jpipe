@@ -15,7 +15,7 @@ import static top.ylonline.jpipe.boot.util.JpipeUtils.LINE_SEPARATOR;
 /**
  * Jpipe Welcome Logo {@link ApplicationListener}
  *
- * @author Created by YL on 2018/9/10
+ * @author YL
  */
 @Order(LoggingApplicationListener.DEFAULT_ORDER + 1)
 @Slf4j

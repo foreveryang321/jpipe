@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * pagelet component
  *
- * @author Created by YL on 2018/8/8
+ * @author YL
  */
 public interface PageletBean {
     /**

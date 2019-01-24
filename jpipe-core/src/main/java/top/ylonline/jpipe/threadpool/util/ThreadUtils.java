@@ -7,7 +7,7 @@ import java.util.concurrent.SynchronousQueue;
 /**
  * Thread util
  *
- * @author Created by YL on 2018/8/12
+ * @author YL
  */
 public class ThreadUtils {
     private static final int MULTIPLE_OF_THREAD = 2;

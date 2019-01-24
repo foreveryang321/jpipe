@@ -12,7 +12,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 import java.io.IOException;
 
 /**
- * @author Created by YL on 2018/8/8
+ * @author YL
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

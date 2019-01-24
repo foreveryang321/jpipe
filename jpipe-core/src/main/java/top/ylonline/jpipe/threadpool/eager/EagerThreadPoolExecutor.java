@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author Created by YL on 2018/9/7
+ * @author YL
  */
 public class EagerThreadPoolExecutor extends JpipeThreadPoolExecutor {
     /**

@@ -5,7 +5,7 @@ import top.ylonline.jpipe.model.Pagelet;
 /**
  * execute tasks，and flush pagelet
  *
- * @author Created by YL on 2018/8/17
+ * @author YL
  */
 public interface Render<T extends Pagelet> {
 

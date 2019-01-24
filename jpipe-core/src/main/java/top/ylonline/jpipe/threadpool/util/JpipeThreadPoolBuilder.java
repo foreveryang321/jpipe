@@ -8,7 +8,7 @@ import top.ylonline.jpipe.threadpool.eager.EagerThreadPool;
 /**
  * Jpipe 线程池生成器
  *
- * @author Created by YL on 2018/9/16
+ * @author YL
  */
 @Data
 public class JpipeThreadPoolBuilder {

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 连接池配置
  *
- * @author Created by YL on 2018/8/28
+ * @author YL
  */
 @Data
 public class Pool {

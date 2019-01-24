@@ -3,7 +3,7 @@ package top.ylonline.jpipe.common;
 /**
  * A generic exception known to the Jpipe project
  *
- * @author Created by YL on 2019/1/11
+ * @author YL
  */
 public class JpipeException extends RuntimeException {
     private static final long serialVersionUID = 3122174655133694886L;

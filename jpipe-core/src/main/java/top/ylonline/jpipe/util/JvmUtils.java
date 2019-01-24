@@ -8,7 +8,7 @@ import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 
 /**
- * @author Created by YL on 2018/9/10
+ * @author YL
  */
 public class JvmUtils {
 
@@ -20,9 +20,10 @@ public class JvmUtils {
     }
 
     private static String getThreadDumpString(ThreadInfo threadInfo) {
-        StringBuilder sb = new StringBuilder("\"" + threadInfo.getThreadName() + "\"" +
-                " Id=" + threadInfo.getThreadId() + " " +
-                threadInfo.getThreadState());
+        StringBuilder sb = new StringBuilder(32);
+        sb.append("\"").append(threadInfo.getThreadName()).append("\"");
+        sb.append(" Id=").append(threadInfo.getThreadId());
+        sb.append(" ").append(threadInfo.getThreadState());
         if (threadInfo.getLockName() != null) {
             sb.append(" on ").append(threadInfo.getLockName());
         }

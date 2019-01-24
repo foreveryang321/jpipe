@@ -12,7 +12,7 @@ import top.ylonline.jpipe.freemarker.tag.PipeTag;
  *     Usage: cfg.setSharedVeriable(shared, new {@link FmHashModel}());
  * </pre>
  *
- * @author Created by YL on 2018/8/19
+ * @author YL
  * @since freemarker 2.3.11
  */
 public class FmHashModel extends SimpleHash {

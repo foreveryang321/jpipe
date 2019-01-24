@@ -17,7 +17,7 @@ import java.util.Map;
  *          ?Status=12323&Reason=是非得失
  * </pre>
  *
- * @author Created by YL on 2018/3/13
+ * @author YL
  */
 public class UriQueryDecoder {
     private static final int DEFAULT_MAX_PARAMS = 1024;

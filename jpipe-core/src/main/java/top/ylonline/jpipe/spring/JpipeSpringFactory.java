@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationContext;
 /**
  * ApplicationContext
  *
- * @author Created by YL on 2018/9/17
+ * @author YL
  */
 public class JpipeSpringFactory {
     private static ApplicationContext context = null;

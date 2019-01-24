@@ -8,7 +8,7 @@ import lombok.ToString;
 import top.ylonline.jpipe.model.Pagelet;
 
 /**
- * @author Created by YL on 2019/1/8
+ * @author YL
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

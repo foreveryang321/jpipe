@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * jpipe 输出的结果
  *
- * @author Created by YL on 2018/8/15
+ * @author YL
  */
 @Data
 @NoArgsConstructor

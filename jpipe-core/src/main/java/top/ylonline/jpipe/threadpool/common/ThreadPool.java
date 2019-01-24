@@ -3,7 +3,7 @@ package top.ylonline.jpipe.threadpool.common;
 import top.ylonline.jpipe.threadpool.JpipeThreadPoolExecutor;
 
 /**
- * @author Created by YL on 2018/9/10
+ * @author YL
  */
 public interface ThreadPool {
     /**

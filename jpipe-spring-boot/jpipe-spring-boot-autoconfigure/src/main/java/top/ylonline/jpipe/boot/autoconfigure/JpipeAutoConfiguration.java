@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Jpipe configuration
  *
- * @author Created by YL on 2018/8/15
+ * @author YL
  */
 @Configuration
 @ConditionalOnProperty(prefix = Cts.JPIPE_PREFIX, name = "enabled", matchIfMissing = true, havingValue = "true")

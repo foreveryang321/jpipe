@@ -9,7 +9,7 @@ import top.ylonline.jpipe.threadpool.eager.EagerThreadPool;
 /**
  * Jpipe 线程池工厂类
  *
- * @author Created by YL on 2018/9/16
+ * @author YL
  */
 @Data
 public class JpipeThreadPoolFactoryBean implements FactoryBean {

@@ -1,7 +1,7 @@
 package top.ylonline.jpipe.boot.util;
 
 /**
- * @author Created by YL on 2018/9/17
+ * @author YL
  */
 public class JpipeUtils {
     /**

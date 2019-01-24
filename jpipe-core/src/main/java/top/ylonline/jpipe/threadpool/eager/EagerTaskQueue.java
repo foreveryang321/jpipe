@@ -5,7 +5,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author Created by YL on 2018/9/7
+ * @author YL
  */
 public class EagerTaskQueue extends LinkedBlockingQueue<Runnable> {
     private static final long serialVersionUID = 1L;

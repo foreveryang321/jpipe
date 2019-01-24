@@ -9,7 +9,7 @@ import top.ylonline.jpipe.threadpool.common.Pool;
 /**
  * Jpipe 配置
  *
- * @author Created by YL on 2018/9/11
+ * @author YL
  */
 @ConfigurationProperties(prefix = Cts.JPIPE_PREFIX)
 @Data

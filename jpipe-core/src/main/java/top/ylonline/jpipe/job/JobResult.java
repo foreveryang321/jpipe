@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 任务结果
  *
- * @author Created by YL on 2018/8/17
+ * @author YL
  */
 @Data
 @NoArgsConstructor

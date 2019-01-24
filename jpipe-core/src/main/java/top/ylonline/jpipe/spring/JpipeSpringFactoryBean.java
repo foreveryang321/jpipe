@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 /**
- * @author Created by YL on 2018/9/17
+ * @author YL
  */
 public class JpipeSpringFactoryBean implements ApplicationContextAware, InitializingBean {
     private ApplicationContext context;
